@@ -1,0 +1,1001 @@
+JEC'UP — MASTER PROMPT COLLEGE LYCEE MULTIDISCIPLINAIRE
+VISION DU PRODUIT
+Créer JEC'UP, un copilote collège/lycée intelligent destiné à toutes filières confondues.
+Slogan :
+« Comprendre. Réviser. Progresser. »
+LISEA transforme les cours personnels de l'étudiant en un système intelligent d'apprentissage et d'organisation.
+LISEA doit s'adapter automatiquement :
+• À la filière
+• Au niveau d'études
+• Aux matières
+• Au type de cours
+• Aux méthodes d'évaluation
+• Aux difficultés de l'étudiant
+• Aux dates d'examens
+• Au temps disponible
+• À la progression réelle
+LISEA ne doit pas fonctionner comme un simple chatbot.
+LISEA doit fonctionner comme un système universitaire adaptatif personnel.
+PARCOURS CENTRAL :
+IMPORTER UN COURS
+↓
+ANALYSER LE CONTENU
+↓
+IDENTIFIER LE TYPE DE MATIÈRE
+↓
+DÉTECTER LES NOTIONS IMPORTANTES
+↓
+CRÉER DES RÉVISIONS ADAPTÉES
+↓
+TESTER L'ÉTUDIANT
+↓
+ANALYSER SES ERREURS
+↓
+MESURER SA MAÎTRISE
+↓
+ADAPTER LES PROCHAINES RÉVISIONS
+↓
+MODIFIER LE PLANNING
+↓
+RETESTER AU BON MOMENT
+
+───
+
+1 — ONBOARDING UNIVERSITAIRE INTELLIGENT
+Lors de la première connexion, créer le profil académique de l'étudiant.
+Demander :
+Prénom.
+Pays d'études.
+Établissement facultatif.
+Type d'établissement.
+Université.
+IUT.
+École.
+Classe préparatoire.
+Autre établissement supérieur.
+Demander le niveau :
+Licence 1.
+Licence 2.
+Licence 3.
+BUT 1.
+BUT 2.
+BUT 3.
+Master 1.
+Master 2.
+Doctorat.
+Préparation concours.
+Autre.
+Demander la filière principale.
+Créer notamment les catégories :
+Droit.
+Médecine et santé.
+Psychologie.
+Sciences humaines.
+Histoire.
+Géographie.
+Lettres.
+Langues.
+Économie.
+Gestion.
+Commerce.
+Sciences politiques.
+Sociologie.
+Philosophie.
+Mathématiques.
+Physique.
+Chimie.
+Biologie.
+Informatique.
+Ingénierie.
+STAPS.
+Arts.
+Communication.
+Sciences de l'éducation.
+Autre.
+Permettre une saisie personnalisée.
+Demander :
+« Quelles matières étudies-tu actuellement ? »
+Permettre l'ajout manuel des matières.
+Demander :
+« Comment es-tu principalement évalué ? »
+QCM.
+Questions de cours.
+Dissertations.
+Examens écrits.
+Examens oraux.
+Exercices.
+Problèmes.
+Études de cas.
+Travaux pratiques.
+Projets.
+Mélange de plusieurs formats.
+Demander :
+« Quel est ton principal objectif ? »
+Réussir mes examens.
+Améliorer mes notes.
+Mieux comprendre mes cours.
+Mieux m'organiser.
+Préparer un concours.
+Rattraper mon retard.
+Mémoriser plus efficacement.
+Préparer mon avenir professionnel.
+LISEA doit utiliser ces réponses pour configurer l'expérience.
+
+───
+
+2 — MOTEUR D'ADAPTATION PAR FILIÈRE
+Créer un moteur nommé :
+LISEA Academic Engine.
+Le système doit identifier le domaine académique d'une matière.
+Créer des profils pédagogiques.
+PROFIL DROIT
+Détecter :
+Concepts juridiques.
+Articles.
+Codes.
+Jurisprudence.
+Institutions.
+Dates.
+Principes.
+Exceptions.
+Créer :
+QCM.
+Fiches d'arrêt.
+Cas pratiques courts.
+Questions de raisonnement.
+Chronologies.
+Fiches de jurisprudence.
+PROFIL MÉDECINE ET SANTÉ
+Détecter :
+Anatomie.
+Physiologie.
+Pathologies.
+Symptômes.
+Mécanismes.
+Molécules.
+Traitements mentionnés dans les cours.
+Classifications.
+Valeurs et données importantes.
+Créer :
+QCM.
+Questions à réponses multiples.
+Associations.
+Schémas conceptuels.
+Questions de mémorisation.
+Cas académiques basés sur le cours.
+IMPORTANT :
+LISEA est un outil d'étude.
+Ne pas présenter les réponses comme des conseils médicaux personnalisés.
+PROFIL PSYCHOLOGIE
+Détecter :
+Auteurs.
+Théories.
+Concepts.
+Expériences.
+Modèles.
+Courants.
+Dates.
+Méthodes de recherche.
+Créer :
+Associations auteur/théorie.
+Comparaisons.
+QCM.
+Questions de compréhension.
+Études de situations académiques.
+PROFIL HISTOIRE
+Détecter :
+Dates.
+Périodes.
+Événements.
+Personnalités.
+Causes.
+Conséquences.
+Territoires.
+Chronologies.
+Créer :
+Frises chronologiques.
+Questions de dates.
+Associations.
+Causes et conséquences.
+Questions de synthèse.
+PROFIL LETTRES ET PHILOSOPHIE
+Détecter :
+Auteurs.
+Œuvres.
+Concepts.
+Thèses.
+Arguments.
+Courants.
+Citations présentes dans les documents.
+Problématiques.
+Créer :
+Questions de compréhension.
+Associations auteur/œuvre.
+Comparaisons de thèses.
+Plans de réflexion.
+Questions de synthèse.
+LISEA doit clairement distinguer les citations réellement présentes dans les documents de l'étudiant.
+PROFIL LANGUES
+Détecter :
+Vocabulaire.
+Grammaire.
+Conjugaison.
+Expressions.
+Structures de phrases.
+Erreurs fréquentes.
+Créer :
+Flashcards.
+Texte à trous.
+Traduction pédagogique.
+Association.
+Questions grammaticales.
+Révision du vocabulaire.
+PROFIL ÉCONOMIE ET GESTION
+Détecter :
+Concepts.
+Modèles.
+Indicateurs.
+Formules.
+Auteurs.
+Théories.
+Méthodes.
+Études de cas.
+Créer :
+QCM.
+Questions de compréhension.
+Calculs.
+Études de cas courtes.
+Associations concept/définition.
+PROFIL MATHÉMATIQUES
+Détecter :
+Définitions.
+Théorèmes.
+Propriétés.
+Formules.
+Méthodes de résolution.
+Types d'exercices.
+Créer :
+Exercices progressifs.
+Calculs.
+Démonstrations guidées.
+Questions de méthode.
+Détection d'erreurs de raisonnement.
+LISEA doit pouvoir expliquer les étapes sans simplement donner immédiatement la réponse finale lorsque le mode apprentissage est activé.
+PROFIL PHYSIQUE ET CHIMIE
+Détecter :
+Lois.
+Formules.
+Unités.
+Constantes.
+Réactions.
+Méthodes.
+Protocoles.
+Créer :
+Calculs.
+Conversions.
+Exercices.
+Associations formule/application.
+Questions sur les unités.
+Analyse d'erreurs.
+PROFIL BIOLOGIE
+Détecter :
+Structures.
+Fonctions.
+Mécanismes.
+Cycles.
+Classifications.
+Processus biologiques.
+Créer :
+Associations.
+Étapes à remettre dans l'ordre.
+QCM.
+Questions de compréhension.
+Comparaisons.
+PROFIL INFORMATIQUE
+Détecter :
+Concepts.
+Algorithmes.
+Structures de données.
+Syntaxe.
+Architecture.
+Protocoles.
+Méthodes.
+Créer :
+QCM.
+Questions de logique.
+Analyse de code.
+Code à compléter.
+Identification d'erreurs.
+Questions sur les algorithmes.
+PROFIL STAPS
+Détecter :
+Anatomie.
+Physiologie.
+Biomécanique.
+Théories.
+Méthodologies.
+Réglementations sportives présentes dans les cours.
+Créer :
+QCM.
+Associations.
+Questions de mécanismes.
+Études de situations académiques.
+PROFIL GÉNÉRIQUE
+Si LISEA ne reconnaît pas précisément une discipline :
+Analyser la structure du document.
+Détecter automatiquement :
+Définitions.
+Concepts.
+Dates.
+Personnes.
+Formules.
+Étapes.
+Processus.
+Arguments.
+Exemples.
+Classifications.
+Créer les formats de révision les plus adaptés.
+
+───
+
+3 — LISEA SCAN UNIVERSAL
+Créer LISEA Scan.
+Permettre :
+Photo d'un cours manuscrit.
+Plusieurs photos.
+PDF.
+Document texte.
+Présentation.
+Document issu d'un traitement de texte.
+Créer un mode Scan continu.
+Détecter :
+Pages floues.
+Pages inclinées.
+Doublons.
+Ordre probable des pages.
+Orientation.
+Après OCR, afficher :
+Document original.
+Texte détecté.
+Permettre la correction.
+Bouton :
+« Valider mon cours »
+Après validation, LISEA doit déterminer :
+Matière probable.
+Domaine académique.
+Type de document.
+Cours magistral.
+TD.
+TP.
+Fiche.
+Exercices.
+Diaporama.
+Article académique.
+Notes personnelles.
+Niveau de complexité estimé.
+
+───
+
+4 — ANALYSE INTELLIGENTE DU COURS
+Après import, analyser le document.
+Créer :
+Résumé du document.
+Structure.
+Chapitres.
+Sections.
+Notions importantes.
+Éléments à mémoriser.
+Éléments à comprendre.
+Éléments à savoir appliquer.
+LISEA doit classer chaque notion.
+MÉMORISER.
+COMPRENDRE.
+APPLIQUER.
+ANALYSER.
+Exemple :
+Date historique :
+MÉMORISER.
+Théorie psychologique :
+COMPRENDRE.
+Formule mathématique :
+COMPRENDRE + APPLIQUER.
+Algorithme :
+COMPRENDRE + APPLIQUER.
+Dissertation :
+ANALYSER.
+Cette classification doit influencer le type de révision généré.
+
+───
+
+5 — DOSSIERS PAR MATIÈRE
+Créer un espace pour chaque matière.
+Chaque matière contient automatiquement :
+Cours.
+TD / Exercices.
+Fiches.
+Révisions.
+QCM et tests.
+Documents.
+Notes.
+Examens.
+Permettre des dossiers personnalisés.
+Adapter les dossiers selon la filière.
+Exemple droit :
+Jurisprudence.
+Articles.
+Cas pratiques.
+Exemple médecine :
+Anatomie.
+Physiologie.
+Pathologies.
+Exemple informatique :
+Algorithmes.
+Projets.
+Code.
+Exemple langues :
+Vocabulaire.
+Grammaire.
+Expressions.
+
+───
+
+6 — GÉNÉRATEUR DE RÉVISIONS
+Créer :
+LISEA Revision Studio.
+L'étudiant sélectionne un cours.
+LISEA recommande automatiquement un format.
+Exemple :
+« Ce cours contient beaucoup de dates. Je recommande une chronologie et un test de mémorisation. »
+Ou :
+« Ce chapitre contient plusieurs formules. Je recommande des exercices progressifs. »
+Formats disponibles :
+QCM.
+Vrai ou faux.
+Réponses multiples.
+Flashcards.
+Texte à trous.
+Associations.
+Chronologie.
+Classement.
+Questions ouvertes.
+Exercices.
+Problèmes.
+Mini études de cas.
+Questions orales.
+Session mixte.
+Créer :
+« Laisser LISEA choisir »
+LISEA sélectionne automatiquement les formats adaptés.
+
+───
+
+7 — QCM ET TESTS ADAPTATIFS
+Créer un moteur de tests.
+Niveau :
+Découverte.
+Révision.
+Intermédiaire.
+Difficile.
+Niveau examen.
+LISEA doit adapter la difficulté pendant la session.
+Si l'étudiant réussit facilement :
+Augmenter progressivement la difficulté.
+Si plusieurs erreurs apparaissent :
+Revenir sur les bases.
+Ne pas uniquement répéter exactement la même question.
+Créer une nouvelle formulation testant la même notion.
+Chaque correction doit afficher :
+Résultat.
+Explication.
+Notion testée.
+Source dans le cours.
+Boutons :
+« Je n'ai pas compris »
+« Explique plus simplement »
+« Donne-moi un exemple »
+« Montre-moi la méthode »
+Le bouton « Montre-moi la méthode » doit être particulièrement utilisé pour les sciences, mathématiques et exercices.
+
+───
+
+8 — LISEA MEMORY
+Créer un moteur de maîtrise personnalisé.
+Chaque notion possède un Mastery Score entre 0 et 100.
+Niveaux :
+Non découverte.
+Fragile.
+En progression.
+Acquise.
+Maîtrisée.
+Le score doit utiliser :
+Résultats aux tests.
+Erreurs répétées.
+Temps de réponse.
+Révisions réalisées.
+Réussite différée.
+Capacité à appliquer la notion.
+Ne pas considérer qu'une notion est définitivement maîtrisée après une seule bonne réponse.
+Créer une répétition espacée adaptative.
+LISEA doit décider quand reproposer une notion.
+Créer :
+« Ma mémoire »
+Afficher :
+À revoir aujourd'hui.
+Notions fragiles.
+Notions acquises.
+Notions probablement oubliées.
+Bouton :
+« Réviser ce que je risque d'oublier »
+
+───
+
+9 — MODE EXAMEN ADAPTÉ
+Créer :
+LISEA Exam.
+L'étudiant choisit :
+Matière.
+Documents.
+Date d'examen.
+Durée.
+Type d'évaluation.
+Types :
+QCM.
+Questions de cours.
+Exercices.
+Questions ouvertes.
+Oral.
+Mélange.
+LISEA génère une simulation adaptée.
+Mode QCM :
+Chronomètre.
+Correction finale.
+Mode questions ouvertes :
+L'étudiant rédige une réponse.
+LISEA analyse :
+Présence des notions attendues.
+Structure.
+Compréhension.
+Éléments manquants.
+Ne pas prétendre fournir une note universitaire officielle.
+Mode oral :
+Afficher une question.
+Créer un chronomètre de préparation.
+Permettre une réponse textuelle ou vocale lorsque la fonctionnalité audio est disponible.
+Créer une analyse pédagogique.
+
+───
+
+10 — FICHES INTELLIGENTES
+Créer plusieurs types de fiches.
+Fiche complète.
+Fiche essentielle.
+Fiche express.
+Fiche définitions.
+Fiche dates.
+Fiche formules.
+Fiche auteurs.
+Fiche concepts.
+Fiche méthode.
+Adapter automatiquement les fiches à la discipline.
+Exemple mathématiques :
+Définition.
+Formule.
+Conditions d'utilisation.
+Méthode.
+Exemple provenant du cours si disponible.
+Exemple histoire :
+Date.
+Événement.
+Contexte.
+Causes.
+Conséquences.
+Exemple psychologie :
+Auteur.
+Théorie.
+Concept.
+Expérience.
+Limites mentionnées dans le cours.
+
+───
+
+11 — LISEA PLANNER
+Créer un planning universitaire intelligent.
+Ajouter :
+Cours.
+TD.
+TP.
+Examens.
+Partiels.
+Révisions.
+Travail personnel.
+Projets.
+Stages.
+Emploi étudiant.
+Rendez-vous.
+L'étudiant renseigne ses disponibilités.
+LISEA analyse :
+Dates d'examens.
+Coefficients ou importance des matières.
+Quantité de documents.
+Scores de maîtrise.
+Notions fragiles.
+Tâches.
+Temps disponible.
+Créer un planning personnalisé.
+Adapter la durée au type de travail.
+Exemple :
+Flashcards :
+15 minutes.
+QCM :
+20 minutes.
+Exercices mathématiques :
+45 minutes.
+Lecture complexe :
+30 minutes.
+Révision ciblée :
+25 minutes.
+Si une session est manquée :
+Proposer une réorganisation.
+Ne pas culpabiliser l'étudiant.
+Afficher :
+« Cette session n'a pas été réalisée. Je peux adapter le reste de ta semaine. »
+Bouton :
+« Adapter mon planning »
+
+───
+
+12 — TO-DO LIST INTELLIGENTE
+Créer LISEA Tasks.
+Saisie naturelle.
+Exemple :
+« Finir mon exposé de psychologie jeudi »
+LISEA détecte :
+Action.
+Matière.
+Date.
+Type de travail.
+Durée probable.
+Créer une prévisualisation avant validation.
+Afficher :
+Aujourd'hui.
+Cette semaine.
+À venir.
+En retard.
+Terminées.
+Créer :
+« Organiser mes tâches »
+LISEA propose un ordre basé sur :
+Urgence.
+Importance.
+Durée.
+Examens.
+Charge de travail.
+
+───
+
+13 — NOTES INTELLIGENTES
+Créer un espace Notes.
+Éditeur moderne.
+Commandes :
+/résumer
+/expliquer
+/qcm
+/flashcards
+/fiche
+/définitions
+/dates
+/formules
+/auteurs
+/exercices
+/reformuler
+/corriger
+Lorsque l'étudiant sélectionne un texte, afficher les actions pertinentes.
+Les commandes proposées doivent varier selon la discipline.
+
+───
+
+14 — ASSISTANT LISEA
+Créer LISEA Assistant.
+Modes :
+Mes cours.
+Comprendre.
+Réviser.
+Méthodologie.
+Coach.
+Examens.
+Mode Mes cours :
+Utiliser uniquement les documents de l'étudiant.
+Chaque réponse doit conserver les sources.
+Si l'information est absente :
+« Cette information n'apparaît pas dans tes cours actuels. »
+Proposer ensuite une explication générale séparée.
+Mode Comprendre :
+Adapter le niveau d'explication.
+Boutons :
+« Plus simple »
+« Plus détaillé »
+« Donne-moi un exemple »
+« Fais une analogie »
+Mode Réviser :
+LISEA pose des questions.
+Analyse les réponses.
+Adapte les suivantes.
+Mode Coach :
+Analyse :
+Progression.
+Temps de travail.
+Erreurs.
+Planning.
+Examens.
+Proposer une action concrète.
+Exemple :
+« Tu as 30 minutes disponibles. Ton examen d'économie approche et deux notions sont fragiles. Je te propose une révision ciblée. »
+
+───
+
+15 — MÉTHODOLOGIE ADAPTATIVE
+Créer LISEA Method.
+Le contenu méthodologique dépend de la filière.
+Droit :
+Fiche d'arrêt.
+Cas pratique.
+Dissertation juridique.
+Commentaire.
+Histoire :
+Dissertation.
+Commentaire de document.
+Analyse de source.
+Lettres :
+Commentaire.
+Dissertation.
+Analyse littéraire.
+Sciences :
+Résolution de problème.
+Compte rendu de TP.
+Analyse de résultats.
+Psychologie et sciences humaines :
+Dissertation.
+Analyse d'article.
+Méthodologie de recherche.
+Économie et gestion :
+Étude de cas.
+Analyse de données.
+Dissertation.
+Informatique :
+Analyse d'algorithme.
+Documentation.
+Rapport de projet.
+Créer :
+« Analyser mon travail »
+LISEA analyse la méthode et la structure.
+Afficher :
+Points réussis.
+Éléments manquants.
+Problèmes de structure.
+Pistes d'amélioration.
+Ne pas prétendre remplacer l'évaluation d'un enseignant.
+
+───
+
+16 — DOCUMENTS ET RECHERCHE
+Créer une bibliothèque documentaire.
+Recherche classique.
+Recherche dans le contenu.
+Recherche sémantique.
+Exemple :
+« Le cours où on parle de mémoire à court terme »
+LISEA retrouve le document pertinent.
+Afficher :
+Document.
+Matière.
+Page.
+Extrait.
+Créer des tags automatiques.
+Permettre les favoris.
+
+───
+
+17 — LISEA CAREER
+Créer un module carrière adapté au profil étudiant.
+Rechercher :
+Stages.
+Alternances.
+Emplois étudiants.
+Premiers emplois.
+Organisations.
+Entreprises.
+Laboratoires.
+Institutions.
+Associations.
+Adapter les catégories à la filière.
+Exemple informatique :
+Entreprises technologiques.
+ESN.
+Startups.
+Exemple psychologie :
+Structures sociales.
+Associations.
+Laboratoires.
+Exemple sciences :
+Laboratoires.
+Industries.
+Centres de recherche.
+Exemple droit :
+Cabinets.
+Services juridiques.
+Institutions.
+Administrations.
+Utiliser uniquement des informations publiques vérifiables pour les organisations réelles.
+Afficher les sources et dates de consultation.
+
+───
+
+18 — SUIVI DES CANDIDATURES
+Créer un Kanban.
+À rechercher.
+À contacter.
+À préparer.
+Envoyée.
+Relance.
+Entretien.
+Acceptée.
+Refusée.
+Créer un assistant carrière.
+Analyser une offre.
+Identifier les compétences demandées.
+Comparer avec le profil renseigné par l'étudiant.
+Préparer un CV.
+Préparer une lettre.
+Préparer un e-mail.
+Simuler un entretien.
+
+───
+
+19 — TABLEAU DE BORD
+Créer :
+« Mon espace LISEA »
+Afficher :
+Prochains examens.
+Taux de réussite.
+Notions à revoir.
+Temps de révision.
+Planning du jour.
+Tâches urgentes.
+Progression par matière.
+Documents récents.
+Créer :
+« Ta priorité du jour »
+LISEA doit proposer une seule priorité principale.
+Exemple :
+« Ton examen de biologie est dans 9 jours. Le cycle de Krebs reste fragile. Je te recommande une session de 25 minutes. »
+Bouton :
+« Commencer »
+Le dashboard doit évoluer avec les activités de l'étudiant.
+
+───
+
+20 — ARCHITECTURE IA
+Créer des services IA spécialisés.
+LISEA Document Agent.
+Analyse les documents.
+LISEA Academic Classifier.
+Identifie la discipline et le type de contenu.
+LISEA Concept Agent.
+Extrait les notions.
+LISEA Revision Agent.
+Choisit le format pédagogique.
+LISEA Quiz Agent.
+Crée les tests.
+LISEA Memory Agent.
+Analyse la maîtrise.
+LISEA Planner Agent.
+Organise les révisions.
+LISEA Tutor Agent.
+Explique.
+LISEA Method Agent.
+Analyse la méthodologie.
+LISEA Career Agent.
+Accompagne la carrière.
+Ne pas mélanger directement toute la logique dans un seul prompt IA.
+Créer des services séparés.
+
+───
+
+21 — ARCHITECTURE TECHNIQUE
+Frontend :
+React.
+TypeScript.
+Tailwind CSS.
+shadcn/ui.
+Backend :
+Supabase.
+PostgreSQL.
+Supabase Auth.
+Supabase Storage.
+Activer Row Level Security.
+Les documents étudiants doivent être privés.
+Créer une architecture RAG pour interroger les documents.
+Créer une abstraction OCR.
+Créer une abstraction fournisseur IA.
+Prévoir une recherche sémantique par embeddings.
+Conserver la relation entre les contenus générés et leurs documents sources.
+
+───
+
+22 — DONNÉES DE DÉMONSTRATION MULTIFILIÈRES
+Créer plusieurs profils de démonstration sélectionnables uniquement dans un mode démo.
+PROFIL 1 :
+Léa.
+Licence 1 Droit.
+PROFIL 2 :
+Emma.
+Licence 1 Psychologie.
+PROFIL 3 :
+Lucas.
+Licence 1 Sciences de la vie.
+PROFIL 4 :
+Inès.
+Licence 2 Histoire.
+PROFIL 5 :
+Thomas.
+Licence Informatique.
+Chaque profil doit avoir :
+Matières.
+Documents de démonstration.
+Notions.
+QCM.
+Planning.
+Tâches.
+Scores de maîtrise.
+Le fonctionnement de LISEA doit visuellement s'adapter à la filière.
+
+───
+
+23 — PRIORITÉ DE DÉVELOPPEMENT
+V1 :
+Authentification.
+Onboarding multidisciplinaire.
+Dashboard.
+Matières.
+Import de documents.
+OCR.
+Classification académique.
+Analyse des cours.
+Extraction des notions.
+QCM.
+Tests adaptatifs.
+Mastery Score.
+Révision ciblée.
+Planning.
+Tâches.
+Assistant Mes cours.
+V2 :
+Flashcards.
+Fiches avancées.
+Mode examen.
+Notes IA.
+Recherche sémantique.
+Méthodologie adaptative.
+V3 :
+Carrière.
+Candidatures.
+Assistant carrière.
+Audio.
+Révisions orales.
+Fonctions collaboratives.
+
+───
+
+OBJECTIF FINAL
+LISEA doit donner l'impression de comprendre :
+Ce que l'étudiant étudie.
+Comment sa matière doit être apprise.
+Ce qu'il maîtrise.
+Ce qu'il ne maîtrise pas.
+Ce qu'il risque d'oublier.
+Quel examen approche.
+Combien de temps il possède.
+Quelle est la prochaine action la plus utile.
+LISEA ne doit pas seulement générer des QCM.
+LISEA doit devenir un copilote universitaire personnel et adaptatif pour toutes les filières de l'enseignement supérieur.
+
