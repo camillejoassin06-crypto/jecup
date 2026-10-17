@@ -3,55 +3,60 @@
 @tailwind utilities;
 
 @layer base {
+  /* Thème par défaut : couleurs du logo JecUp (bleu marine #001A6F, bleu roi #0A2AA3, violet #4708CA → #8319EB) */
   :root {
-    --background: 40 33% 98%;
-    --foreground: 230 25% 14%;
+    --brand-ink: 226 100% 22%;
+    --brand-violet: 263 92% 42%;
+    --background: 230 45% 98.5%;
+    --foreground: 226 55% 14%;
     --card: 0 0% 100%;
-    --card-foreground: 230 25% 14%;
-    --primary: 245 75% 58%;
+    --card-foreground: 226 55% 14%;
+    --primary: 229 85% 38%;
     --primary-foreground: 0 0% 100%;
-    --primary-2: 265 70% 55%;
-    --secondary: 245 60% 96%;
-    --secondary-foreground: 245 50% 30%;
-    --muted: 230 20% 95%;
-    --muted-foreground: 230 10% 44%;
-    --accent: 32 100% 94%;
-    --accent-foreground: 24 80% 30%;
+    --primary-2: 272 84% 51%;
+    --secondary: 232 85% 96%;
+    --secondary-foreground: 229 80% 28%;
+    --muted: 230 35% 95%;
+    --muted-foreground: 228 14% 42%;
+    --accent: 268 90% 96%;
+    --accent-foreground: 266 70% 32%;
     --destructive: 352 75% 52%;
     --destructive-foreground: 0 0% 100%;
     --success: 152 60% 38%;
     --success-foreground: 152 70% 22%;
     --warning: 38 95% 50%;
     --warning-foreground: 30 85% 28%;
-    --border: 230 20% 90%;
-    --input: 230 20% 88%;
-    --ring: 245 75% 58%;
+    --border: 230 30% 90%;
+    --input: 230 25% 86%;
+    --ring: 229 85% 38%;
     --radius: 0.9rem;
     color-scheme: light;
   }
   .dark {
-    --background: 232 24% 9%;
-    --foreground: 230 20% 94%;
-    --card: 232 22% 13%;
-    --card-foreground: 230 20% 94%;
-    --primary: 245 85% 70%;
-    --primary-foreground: 232 30% 10%;
-    --primary-2: 275 70% 62%;
-    --secondary: 245 30% 20%;
-    --secondary-foreground: 245 80% 88%;
-    --muted: 232 18% 18%;
-    --muted-foreground: 230 12% 66%;
-    --accent: 28 50% 20%;
-    --accent-foreground: 32 100% 82%;
+    --brand-ink: 228 90% 90%;
+    --brand-violet: 268 90% 72%;
+    --background: 230 45% 8%;
+    --foreground: 230 30% 94%;
+    --card: 230 40% 12%;
+    --card-foreground: 230 30% 94%;
+    --primary: 228 95% 72%;
+    --primary-foreground: 230 50% 10%;
+    --primary-2: 272 90% 70%;
+    --secondary: 232 45% 20%;
+    --secondary-foreground: 228 90% 88%;
+    --muted: 230 30% 17%;
+    --muted-foreground: 230 15% 68%;
+    --accent: 268 40% 20%;
+    --accent-foreground: 268 90% 86%;
     --destructive: 352 75% 62%;
     --destructive-foreground: 0 0% 100%;
     --success: 152 55% 48%;
     --success-foreground: 152 60% 70%;
     --warning: 38 95% 55%;
     --warning-foreground: 38 95% 70%;
-    --border: 232 16% 22%;
-    --input: 232 16% 26%;
-    --ring: 245 85% 70%;
+    --border: 230 28% 22%;
+    --input: 230 25% 27%;
+    --ring: 228 95% 72%;
     color-scheme: dark;
   }
   * {

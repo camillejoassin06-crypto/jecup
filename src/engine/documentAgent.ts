@@ -1,4 +1,4 @@
-// JEC'UP Document Agent : structure, découpage, résumé, type et complexité d'un cours.
+// JecUp Document Agent : structure, découpage, résumé, type et complexité d'un cours.
 import type { DocChunk, DocType } from "@/types";
 import { uid } from "@/lib/utils";
 import { normalize, splitSentences, tokenize } from "./text";

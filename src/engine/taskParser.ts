@@ -1,4 +1,4 @@
-// JEC'UP Tasks : saisie naturelle → tâche structurée (action, matière, date, type, durée).
+// JecUp Tasks : saisie naturelle → tâche structurée (action, matière, date, type, durée).
 import type { Subject, TaskKind } from "@/types";
 import { addDays, todayISO } from "@/lib/utils";
 import { capitalize, normalize } from "./text";

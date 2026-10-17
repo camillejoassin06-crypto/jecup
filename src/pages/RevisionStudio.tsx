@@ -12,7 +12,7 @@ import type { QuestionType } from "@/types";
 import { cn } from "@/lib/utils";
 
 const FORMATS: { id: string; label: string; types: QuestionType[]; hint: string }[] = [
-  { id: "auto", label: "✨ Laisser JEC'UP choisir", types: [], hint: "Formats adaptés à chaque notion" },
+  { id: "auto", label: "✨ Laisser JecUp choisir", types: [], hint: "Formats adaptés à chaque notion" },
   { id: "qcm", label: "QCM", types: ["qcm"], hint: "Choisir la bonne réponse" },
   { id: "vf", label: "Vrai ou faux", types: ["vrai-faux"], hint: "Rapide, idéal pour démarrer" },
   { id: "trous", label: "Texte à trous", types: ["trous"], hint: "Rappel actif, sans choix proposés" },

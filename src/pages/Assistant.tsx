@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { BookOpen, Brain, Compass, Lightbulb, Send, Trash2 } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { Button } from "@/components/ui/button";
+import { Mascot } from "@/components/Layout";
 import { Badge, Card, Input, PageHeader } from "@/components/ui/primitives";
 import { getAI, type ExplainStyle } from "@/services/ai/provider";
 import { searchChunks } from "@/engine/tutorAgent";
@@ -37,7 +38,11 @@ export default function Assistant() {
   const messages = chat.filter((m) => m.mode === mode);
   const today = todayISO();
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [messages.length]);
+  // fait défiler uniquement la zone de discussion, jamais la page entière
+  useEffect(() => {
+    const box = endRef.current?.parentElement;
+    if (box) box.scrollTo({ top: box.scrollHeight, behavior: "smooth" });
+  }, [messages.length, busy]);
 
   const findConcept = (q: string) => {
     const qt = tokenize(q);
@@ -148,7 +153,7 @@ export default function Assistant() {
 
   return (
     <div className="flex h-[calc(100vh-9rem)] flex-col lg:h-[calc(100vh-5rem)]">
-      <PageHeader title="Assistant JEC'UP" actions={messages.length > 0 && <Button variant="ghost" size="sm" onClick={clearChat}><Trash2 /> Effacer</Button>} />
+      <PageHeader title="Assistant JecUp" actions={messages.length > 0 && <Button variant="ghost" size="sm" onClick={clearChat}><Trash2 /> Effacer</Button>} />
       <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {MODES.map(({ id, label, icon: Icon }) => (
           <button key={id} onClick={() => { setMode(id); setPending(null); }} className={cn("flex items-center justify-center gap-2 rounded-xl border p-2.5 text-sm font-semibold", mode === id ? "border-primary bg-primary/10 text-primary" : "bg-card hover:bg-muted")}>
@@ -165,7 +170,8 @@ export default function Assistant() {
         <div className="flex-1 space-y-4 overflow-y-auto p-4 scrollbar-thin">
           {messages.length === 0 && (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-sm text-muted-foreground">
-              <div className="text-4xl">💬</div>
+              <Mascot size={72} />
+              <p className="font-brand text-xl text-[hsl(var(--brand-violet))]">Salut ! On révise ensemble ?</p>
               <p>Commence par une question, ou essaie :</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {suggestions.map((s) => <button key={s} onClick={() => send(s)} className="rounded-full border bg-card px-3 py-1.5 text-foreground hover:border-primary">{s}</button>)}
@@ -173,7 +179,8 @@ export default function Assistant() {
             </div>
           )}
           {messages.map((m) => (
-            <div key={m.id} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
+            <div key={m.id} className={cn("flex items-end gap-2", m.role === "user" ? "justify-end" : "justify-start")}>
+              {m.role === "assistant" && <Mascot size={32} className="mb-1" />}
               <div className={cn("max-w-[85%] rounded-2xl px-4 py-3 text-sm", m.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted")}>
                 <RichText text={m.content} />
                 {m.sources && m.sources.length > 0 && (
@@ -199,7 +206,7 @@ export default function Assistant() {
               </div>
             </div>
           ))}
-          {busy && <div className="text-sm text-muted-foreground">JEC'UP réfléchit…</div>}
+          {busy && <div className="flex items-center gap-2 text-sm text-muted-foreground"><Mascot size={24} /> JecUp réfléchit…</div>}
           <div ref={endRef} />
         </div>
 

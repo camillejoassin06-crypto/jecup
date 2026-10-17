@@ -1,4 +1,4 @@
-// JEC'UP Scan : abstraction OCR (PDF texte, PDF scanné, photos) + contrôles qualité.
+// JecUp Scan : abstraction OCR (PDF texte, PDF scanné, photos) + contrôles qualité.
 
 export interface PageQuality {
   name: string;

@@ -1,4 +1,4 @@
-// JEC'UP Planner Agent : planning de révisions personnalisé et réorganisation sans culpabiliser.
+// JecUp Planner Agent : planning de révisions personnalisé et réorganisation sans culpabiliser.
 import type { Concept, MasteryState, PlannerEvent, StudentProfile, Subject, Task } from "@/types";
 import { addDays, daysBetween, uid } from "@/lib/utils";
 import { effectiveScore } from "./memoryAgent";

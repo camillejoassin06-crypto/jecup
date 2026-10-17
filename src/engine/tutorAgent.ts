@@ -1,4 +1,4 @@
-// JEC'UP Tutor Agent : recherche dans les cours (RAG lexical BM25) et réponses sourcées.
+// JecUp Tutor Agent : recherche dans les cours (RAG lexical BM25) et réponses sourcées.
 import type { ChatSource, Concept, CourseDocument, DocChunk } from "@/types";
 import { splitSentences, tokenize, truncate } from "./text";
 

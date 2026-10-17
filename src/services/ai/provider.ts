@@ -7,7 +7,7 @@ export type ExplainStyle = "simple" | "detail" | "exemple" | "analogie";
 
 export interface AIProvider {
   readonly name: "heuristic" | "claude";
-  /** LISEA/JEC'UP Tutor — mode Mes cours : uniquement les documents de l'élève */
+  /** JecUp Tutor — mode Mes cours : uniquement les documents de l'élève */
   answerFromCourses(question: string, docs: CourseDocument[], concepts: Concept[], level: LevelId): Promise<CourseAnswer>;
   /** Explication générale, toujours présentée séparément des cours */
   generalExplanation(question: string, level: LevelId): Promise<string | null>;

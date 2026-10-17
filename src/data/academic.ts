@@ -128,7 +128,7 @@ export interface DisciplineProfile {
   emoji: string;
   /** mots-clés pondérés pour le classifieur */
   keywords: string[];
-  /** ce que JEC'UP cherche dans un cours de cette matière */
+  /** ce que JecUp cherche dans un cours de cette matière */
   detects: string[];
   /** formats de révision privilégiés */
   formats: string[];

@@ -5,6 +5,7 @@ import {
 import { useStore } from "@/store/useStore";
 import { usePrefs } from "@/store/usePrefs";
 import { useResolvedDark } from "./ThemeApplier";
+import { BRAND } from "@/lib/brand";
 import { levelInfo } from "@/data/academic";
 import { DEMO_PROFILES } from "@/data/demo";
 import { cn } from "@/lib/utils";
@@ -29,15 +30,35 @@ export function useDarkMode() {
   return [dark, (v: boolean) => set({ mode: v ? "dark" : "light" })] as const;
 }
 
+/** Mascotte JecUp dans un cercle aux couleurs de la marque. */
+export function Mascot({ size = 40, className }: { size?: number; className?: string }) {
+  return (
+    <span
+      className={cn("inline-block shrink-0 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] p-[2px] shadow-sm", className)}
+      style={{ width: size, height: size }}
+    >
+      <img src={BRAND.avatar} alt="" width={size} height={size} className="h-full w-full rounded-full bg-white object-cover" />
+    </span>
+  );
+}
+
+/** Mot « JecUp » : « Jec » en bleu marine, « Up » en violet, comme sur le logo. */
+export function Wordmark({ className }: { className?: string }) {
+  return (
+    <span className={cn("font-brand leading-none", className)}>
+      <span className="text-[hsl(var(--brand-ink))]">Jec</span>
+      <span className="bg-gradient-to-r from-[hsl(var(--brand-violet))] to-[hsl(var(--primary-2))] bg-clip-text text-transparent">Up</span>
+    </span>
+  );
+}
+
 export function Logo({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-lg font-extrabold text-primary-foreground shadow-sm">
-        J
-      </div>
+    <div className={cn("flex items-center gap-2.5", className)}>
+      <Mascot size={40} />
       <div className="leading-none">
-        <div className="font-display text-lg font-extrabold">JEC'UP</div>
-        <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Comprendre · Réviser · Progresser</div>
+        <Wordmark className="block text-2xl leading-[1.15]" />
+        <div className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">by {BRAND.company}</div>
       </div>
     </div>
   );

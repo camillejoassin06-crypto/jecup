@@ -1,4 +1,4 @@
-// JEC'UP Revision Agent : choisit les formats de révision adaptés à un cours.
+// JecUp Revision Agent : choisit les formats de révision adaptés à un cours.
 import { DISCIPLINES } from "@/data/academic";
 import type { BloomLevel, Concept, DisciplineId } from "@/types";
 

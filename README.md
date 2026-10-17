@@ -1,8 +1,12 @@
-# JEC'UP — copilote collège & lycée
+<p align="center"><img src="public/logo.jpg" alt="JecUp by Jeca Solutions" width="260" /></p>
 
-> **Comprendre. Réviser. Progresser.**
+# JecUp — copilote collège & lycée
 
-JEC'UP transforme les cours d'un élève (de la 6e à la Terminale, voies générale, technologique et professionnelle) en un système de révision adaptatif. L'élève importe un cours, et JEC'UP enchaîne les étapes suivantes :
+> **Apprends, révise, réussis !** — by Jeca Solutions
+>
+> 🌐 Démo en ligne : https://camillejoassin06-crypto.github.io/jecup/
+
+JecUp transforme les cours d'un élève (de la 6e à la Terminale, voies générale, technologique et professionnelle) en un système de révision adaptatif. L'élève importe un cours, et JecUp enchaîne les étapes suivantes :
 
 ```
 importer → analyser → identifier la matière → détecter les notions → créer des révisions adaptées
@@ -34,9 +38,9 @@ Sans configuration, l'application fonctionne **en local** : les données restent
 
 - **Onboarding collège/lycée** : classe, voie, série techno, spécialités (3 en 1re, 2 en Tle), matières pré-remplies selon le niveau, formats d'évaluation (brevet, bac, oral…), objectifs, disponibilités.
 - **Profils pédagogiques par matière** : français, maths, histoire-géo, EMC, SVT, physique-chimie, langues, SES, philosophie, NSI/SNT, technologie, HGGSP, HLP, EPS, arts, plus un profil générique. Chaque profil a ses propres dossiers, types de notions et formats de révision.
-- **JEC'UP Scan** : photos (scan continu), PDF texte ou scanné (OCR automatique), texte collé. Détection des pages floues et des doublons, ordre probable des pages, puis correction du texte et bouton « Valider mon cours ».
+- **JecUp Scan** : photos (scan continu), PDF texte ou scanné (OCR automatique), texte collé. Détection des pages floues et des doublons, ordre probable des pages, puis correction du texte et bouton « Valider mon cours ».
 - **Analyse du cours** : résumé, structure, type de document, complexité, matière probable avec un score de confiance, et notions classées *mémoriser / comprendre / appliquer / analyser*.
-- **Revision Studio** : format recommandé selon le contenu (dates → frise, formules → exercices progressifs, vocabulaire → flashcards…), ou « Laisser JEC'UP choisir ».
+- **Revision Studio** : format recommandé selon le contenu (dates → frise, formules → exercices progressifs, vocabulaire → flashcards…), ou « Laisser JecUp choisir ».
 - **Tests adaptatifs** : 5 niveaux. La difficulté monte après 2 réussites et revient aux bases après 2 erreurs. Une notion ratée revient plus tard avec une autre formulation. Chaque correction affiche l'explication, la notion testée et la source dans le cours, avec les boutons « Je n'ai pas compris », « Explique plus simplement », « Donne-moi un exemple » et « Montre-moi la méthode ».
 - **Ma mémoire** : un Mastery Score de 0 à 100 qui combine la réussite récente, la réussite différée, les questions difficiles réussies, les erreurs répétées, le temps de réponse et le volume de révision. La répétition est espacée et adaptative. Une seule bonne réponse ne suffit jamais à « maîtriser » une notion.
 - **Planning** : les sessions sont placées selon les contrôles, l'importance des matières, les notions fragiles, les devoirs et les disponibilités. Une session manquée est replanifiée sans culpabiliser l'élève.

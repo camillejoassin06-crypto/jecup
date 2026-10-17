@@ -68,7 +68,7 @@ export default function CourseView() {
             <div className="mt-2 flex flex-wrap gap-1">{reco.formats.map((f) => <Badge key={f}>{f}</Badge>)}</div>
           </div>
           <Button size="lg" disabled={!own.length} onClick={() => navigate(`/quiz?doc=${doc.id}&difficulty=${reco.startDifficulty}`)}>
-            <Play /> Laisser JEC'UP choisir
+            <Play /> Laisser JecUp choisir
           </Button>
         </CardContent>
       </Card>

@@ -1,4 +1,4 @@
-// JEC'UP Concept Agent : extrait les notions d'un cours et les classe (Bloom).
+// JecUp Concept Agent : extrait les notions d'un cours et les classe (Bloom).
 import { DEFAULT_BLOOM, DISCIPLINES } from "@/data/academic";
 import type { BloomLevel, Concept, ConceptKind, DisciplineId, DocChunk } from "@/types";
 import { uid } from "@/lib/utils";

@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, Chip, Input, Label, Progress, Select } from "@/components/ui/primitives";
 import { Logo } from "@/components/Layout";
+import { BRAND } from "@/lib/brand";
 import {
   BASE_FOLDERS, DISCIPLINES, EVAL_FORMATS, GOALS, LEVELS, SERIES_TECHNO, SPECIALITES, VOIES,
   defaultSubjects, isPro, needsVoie,
@@ -124,7 +125,7 @@ export default function Onboarding() {
     return (
       <Shell>
         <h1 className="text-3xl font-extrabold">Mode démo</h1>
-        <p className="mt-1 text-muted-foreground">Choisis un profil : JEC'UP s'adapte au niveau, aux matières et aux évaluations de chacun.</p>
+        <p className="mt-1 text-muted-foreground">Choisis un profil : JecUp s'adapte au niveau, aux matières et aux évaluations de chacun.</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {DEMO_PROFILES.map((d) => (
             <button
@@ -156,7 +157,10 @@ export default function Onboarding() {
   }
 
   return (
-    <Shell>
+    <Shell wide={step === 0}>
+      {step > 0 && (
+        <div className="mb-6 flex justify-center"><Logo /></div>
+      )}
       {step > 0 && (
         <div className="mb-8">
           <div className="mb-2 flex justify-between text-xs font-semibold text-muted-foreground">
@@ -168,26 +172,47 @@ export default function Onboarding() {
       )}
 
       {step === 0 && (
-        <div className="text-center">
-          <div className="mx-auto mb-6 w-fit"><Logo className="scale-125" /></div>
-          <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-            Tes cours deviennent <span className="text-primary">ton plan de réussite</span>.
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Photographie une leçon : JEC'UP repère l'essentiel, te teste au bon niveau, mesure ce que tu maîtrises
-            et organise tes révisions jusqu'au contrôle, au brevet ou au bac.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button size="lg" onClick={() => setStep(1)}>
-              Créer mon profil <ArrowRight />
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => setShowDemo(true)}>
-              Essayer la démo
-            </Button>
+        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,300px)_1fr]">
+          <div className="relative mx-auto w-full max-w-[300px]">
+            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] opacity-30 blur-2xl" />
+            <img
+              src={BRAND.logo}
+              alt="JecUp by Jeca Solutions — Apprends, révise, réussis !"
+              width={300}
+              height={300}
+              className="relative aspect-square w-full rounded-full bg-white object-cover shadow-xl ring-4 ring-card"
+            />
           </div>
-          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-3 text-left text-sm sm:grid-cols-4">
-            {["📸 Scanner", "🧠 Comprendre", "🎯 Se tester", "📅 S'organiser"].map((t) => (
-              <div key={t} className="rounded-xl border bg-card p-3 font-semibold">{t}</div>
+          <div className="text-center md:text-left">
+            <p className="font-brand text-2xl text-[hsl(var(--brand-violet))]">{BRAND.tagline}</p>
+            <h1 className="mt-2 text-4xl font-extrabold leading-tight sm:text-5xl">
+              Tes cours deviennent <span className="bg-gradient-to-r from-primary to-[hsl(var(--primary-2))] bg-clip-text text-transparent">ton plan de réussite</span>.
+            </h1>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Photographie une leçon : JecUp repère l'essentiel, te teste au bon niveau, mesure ce que tu maîtrises
+              et organise tes révisions jusqu'au contrôle, au brevet ou au bac.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
+              <Button size="lg" onClick={() => setStep(1)}>
+                Créer mon profil <ArrowRight />
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => setShowDemo(true)}>
+                Essayer la démo
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-left text-sm sm:grid-cols-4 md:col-span-2">
+            {[
+              ["📸", "Scanner", "Photo, PDF ou texte"],
+              ["🧠", "Comprendre", "Les notions clés repérées"],
+              ["🎯", "Se tester", "Au bon niveau, qui s'adapte"],
+              ["📅", "S'organiser", "Un planning qui suit tes contrôles"],
+            ].map(([icon, title, hint]) => (
+              <div key={title} className="rounded-xl border bg-card p-3">
+                <div className="text-xl">{icon}</div>
+                <div className="mt-1 font-semibold">{title}</div>
+                <div className="text-xs text-muted-foreground">{hint}</div>
+              </div>
             ))}
           </div>
         </div>
@@ -360,12 +385,14 @@ export default function Onboarding() {
   );
 }
 
-function Shell({ children }: { children: React.ReactNode }) {
+function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }) {
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,hsl(var(--secondary)),transparent_60%)] px-4 py-10">
-      <Card className="mx-auto max-w-2xl p-6 sm:p-10">{children}</Card>
+      <Card className={cn("mx-auto p-6 sm:p-10", wide ? "max-w-4xl" : "max-w-2xl")}>{children}</Card>
       <p className="mt-6 text-center text-xs text-muted-foreground">
         Tes cours restent privés : ils sont stockés sur ton appareil (ou dans ton espace sécurisé si la synchronisation est activée).
+        <br />
+        JecUp by {BRAND.company}
       </p>
     </div>
   );

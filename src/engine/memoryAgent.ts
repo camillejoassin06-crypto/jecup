@@ -1,4 +1,4 @@
-// JEC'UP Memory Agent : Mastery Score (0–100) et répétition espacée adaptative.
+// JecUp Memory Agent : Mastery Score (0–100) et répétition espacée adaptative.
 import type { Attempt, MasteryLevel, MasteryState } from "@/types";
 import { addDays, clamp, daysBetween, todayISO } from "@/lib/utils";
 

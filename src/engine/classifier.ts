@@ -1,4 +1,4 @@
-// JEC'UP Academic Classifier : identifie la matière d'un document.
+// JecUp Academic Classifier : identifie la matière d'un document.
 import { DISCIPLINES } from "@/data/academic";
 import type { DisciplineId } from "@/types";
 import { normalize } from "./text";

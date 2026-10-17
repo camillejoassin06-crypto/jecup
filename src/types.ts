@@ -1,4 +1,4 @@
-// Modèle de domaine JEC'UP (collège / lycée)
+// Modèle de domaine JecUp (collège / lycée)
 
 export type Cycle = "college" | "lycee";
 

@@ -18,12 +18,12 @@ export interface ThemeDef {
 export const THEMES: ThemeDef[] = [
   {
     id: "classique",
-    label: "Classique",
-    emoji: "💜",
-    description: "Indigo et violet, le thème d'origine.",
+    label: "JecUp",
+    emoji: "🎓",
+    description: "Bleu marine et violet, aux couleurs du logo.",
     light: {},
     dark: {},
-    swatch: ["#faf9f6", "#ffffff", "#5b4de0", "#8b45d6"],
+    swatch: ["#f6f7fd", "#ffffff", "#0e2fb4", "#8319eb"],
   },
   {
     id: "ocean",
@@ -110,12 +110,14 @@ export const THEMES: ThemeDef[] = [
       "--primary": "240 100% 30%", "--primary-2": "240 100% 30%", "--ring": "240 100% 30%",
       "--secondary": "240 30% 92%", "--secondary-foreground": "240 100% 18%", "--muted": "0 0% 93%", "--muted-foreground": "0 0% 20%",
       "--accent": "50 100% 85%", "--accent-foreground": "0 0% 0%", "--border": "0 0% 35%", "--input": "0 0% 30%",
+      "--brand-ink": "0 0% 0%", "--brand-violet": "240 100% 30%",
     },
     dark: {
       "--background": "0 0% 0%", "--foreground": "0 0% 100%", "--card": "0 0% 6%", "--card-foreground": "0 0% 100%",
       "--primary": "55 100% 55%", "--primary-foreground": "0 0% 0%", "--primary-2": "55 100% 55%", "--ring": "55 100% 55%",
       "--secondary": "0 0% 16%", "--secondary-foreground": "55 100% 75%", "--muted": "0 0% 12%", "--muted-foreground": "0 0% 82%",
       "--accent": "55 60% 18%", "--accent-foreground": "55 100% 80%", "--border": "0 0% 60%", "--input": "0 0% 65%",
+      "--brand-ink": "0 0% 100%", "--brand-violet": "55 100% 55%",
     },
     swatch: ["#ffffff", "#ffffff", "#000099", "#000000"],
   },

@@ -1,4 +1,4 @@
-// JEC'UP Coach : une seule priorité du jour, concrète et justifiée.
+// JecUp Coach : une seule priorité du jour, concrète et justifiée.
 import type { Concept, MasteryState, PlannerEvent, Subject, Task } from "@/types";
 import { daysBetween, plural } from "@/lib/utils";
 import { atRisk, effectiveScore } from "./memoryAgent";

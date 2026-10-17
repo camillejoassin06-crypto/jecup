@@ -20,7 +20,7 @@ export default function Settings() {
     <div className="space-y-6">
       <PageHeader
         title="Paramètres"
-        subtitle="Personnalise l'apparence de JEC'UP. Les changements s'appliquent tout de suite."
+        subtitle="Personnalise l'apparence de JecUp. Les changements s'appliquent tout de suite."
         actions={<Button variant="ghost" onClick={prefs.reset}><RotateCcw /> Apparence par défaut</Button>}
       />
 

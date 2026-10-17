@@ -1,4 +1,4 @@
-// JEC'UP Quiz Agent : génère des questions variées et une session adaptative.
+// JecUp Quiz Agent : génère des questions variées et une session adaptative.
 import { DISCIPLINES } from "@/data/academic";
 import type { Concept, DisciplineId, MasteryState, Question, QuestionType } from "@/types";
 import { clamp, shuffle, uid } from "@/lib/utils";

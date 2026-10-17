@@ -5,6 +5,7 @@ import { useStore } from "@/store/useStore";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, Badge, Progress } from "@/components/ui/primitives";
 import { Ring, SubjectDot, SubjectTag } from "@/components/bits";
+import { Mascot } from "@/components/Layout";
 import { dailyPriority } from "@/engine/coach";
 import { memoryBuckets } from "@/engine/memoryAgent";
 import { missedSessions } from "@/engine/plannerAgent";
@@ -65,7 +66,8 @@ export default function Dashboard() {
       <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] p-6 text-primary-foreground shadow-lg sm:p-8">
         <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-primary-foreground/10" />
         <div className="absolute -bottom-16 right-20 h-40 w-40 rounded-full bg-primary-foreground/5" />
-        <div className="relative max-w-2xl">
+        <Mascot size={112} className="absolute right-8 top-1/2 hidden -translate-y-1/2 from-primary-foreground/60 to-primary-foreground/30 p-1 md:block" />
+        <div className="relative max-w-2xl md:pr-36">
           <Badge className="bg-primary-foreground/20 text-primary-foreground"><Target className="h-3 w-3" /> Ta priorité du jour</Badge>
           <h2 className="mt-3 text-2xl font-extrabold sm:text-3xl">{priority.title}</h2>
           <p className="mt-2 text-primary-foreground/90">{priority.reason}</p>

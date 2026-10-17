@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         sans: ["var(--font-body, Inter)", "system-ui", "Segoe UI", "sans-serif"],
         display: ["var(--font-display, 'Bricolage Grotesque')", "Inter", "system-ui", "sans-serif"],
+        brand: ["'Pacifico'", "'Brush Script MT'", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
