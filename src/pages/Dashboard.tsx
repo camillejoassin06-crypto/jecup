@@ -62,18 +62,18 @@ export default function Dashboard() {
       )}
 
       {/* Priorité du jour */}
-      <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-primary to-[hsl(265,70%,55%)] p-6 text-primary-foreground shadow-lg sm:p-8">
-        <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10" />
-        <div className="absolute -bottom-16 right-20 h-40 w-40 rounded-full bg-white/5" />
+      <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] p-6 text-primary-foreground shadow-lg sm:p-8">
+        <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-primary-foreground/10" />
+        <div className="absolute -bottom-16 right-20 h-40 w-40 rounded-full bg-primary-foreground/5" />
         <div className="relative max-w-2xl">
-          <Badge className="bg-white/20 text-white"><Target className="h-3 w-3" /> Ta priorité du jour</Badge>
+          <Badge className="bg-primary-foreground/20 text-primary-foreground"><Target className="h-3 w-3" /> Ta priorité du jour</Badge>
           <h2 className="mt-3 text-2xl font-extrabold sm:text-3xl">{priority.title}</h2>
-          <p className="mt-2 text-white/90">{priority.reason}</p>
+          <p className="mt-2 text-primary-foreground/90">{priority.reason}</p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={() => navigate(priority.to)}>
+            <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90" onClick={() => navigate(priority.to)}>
               <Play className="fill-current" /> Commencer
             </Button>
-            <span className="flex items-center gap-1 text-sm text-white/80"><Clock className="h-4 w-4" /> {priority.durationMin} min</span>
+            <span className="flex items-center gap-1 text-sm text-primary-foreground/80"><Clock className="h-4 w-4" /> {priority.durationMin} min</span>
           </div>
         </div>
       </Card>

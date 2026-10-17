@@ -10,6 +10,7 @@
     --card-foreground: 230 25% 14%;
     --primary: 245 75% 58%;
     --primary-foreground: 0 0% 100%;
+    --primary-2: 265 70% 55%;
     --secondary: 245 60% 96%;
     --secondary-foreground: 245 50% 30%;
     --muted: 230 20% 95%;
@@ -35,6 +36,7 @@
     --card-foreground: 230 20% 94%;
     --primary: 245 85% 70%;
     --primary-foreground: 232 30% 10%;
+    --primary-2: 275 70% 62%;
     --secondary: 245 30% 20%;
     --secondary-foreground: 245 80% 88%;
     --muted: 232 18% 18%;
@@ -61,6 +63,22 @@
   }
   h1, h2, h3 {
     @apply font-display tracking-tight;
+  }
+}
+
+/* Préférence « réduire les animations » (et réglage système équivalent) */
+/* « none » plutôt qu'une durée quasi nulle : une transition de couleur ne doit jamais rester figée. */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
 

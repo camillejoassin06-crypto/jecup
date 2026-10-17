@@ -8,8 +8,8 @@ export default {
     container: { center: true, padding: "1rem" },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "Segoe UI", "sans-serif"],
-        display: ["'Bricolage Grotesque'", "Inter", "system-ui", "sans-serif"],
+        sans: ["var(--font-body, Inter)", "system-ui", "Segoe UI", "sans-serif"],
+        display: ["var(--font-display, 'Bricolage Grotesque')", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

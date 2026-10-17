@@ -1,9 +1,10 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
-  Brain, CalendarDays, CheckSquare, FolderOpen, Home, LogOut, MessageCircle, Moon, ScanLine, Sparkles, Sun,
+  Brain, CalendarDays, CheckSquare, FolderOpen, Home, LogOut, MessageCircle, Moon, ScanLine, Settings, Sparkles, Sun,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useStore } from "@/store/useStore";
+import { usePrefs } from "@/store/usePrefs";
+import { useResolvedDark } from "./ThemeApplier";
 import { levelInfo } from "@/data/academic";
 import { DEMO_PROFILES } from "@/data/demo";
 import { cn } from "@/lib/utils";
@@ -18,26 +19,14 @@ const NAV = [
   { to: "/planning", label: "Planning", icon: CalendarDays },
   { to: "/taches", label: "Tâches", icon: CheckSquare },
   { to: "/assistant", label: "Assistant", icon: MessageCircle },
+  { to: "/parametres", label: "Paramètres", icon: Settings },
 ];
 
+/** Bascule rapide clair/sombre (le réglage complet est dans Paramètres). */
 export function useDarkMode() {
-  const [dark, setDark] = useState(() => {
-    try {
-      const saved = localStorage.getItem("jecup-theme");
-      return saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    } catch {
-      return false;
-    }
-  });
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    try {
-      localStorage.setItem("jecup-theme", dark ? "dark" : "light");
-    } catch {
-      /* stockage indisponible */
-    }
-  }, [dark]);
-  return [dark, setDark] as const;
+  const dark = useResolvedDark();
+  const set = usePrefs((s) => s.set);
+  return [dark, (v: boolean) => set({ mode: v ? "dark" : "light" })] as const;
 }
 
 export function Logo({ className }: { className?: string }) {
@@ -129,9 +118,14 @@ export default function Layout() {
         )}
         <header className="flex items-center justify-between border-b px-4 py-3 lg:hidden">
           <Logo />
-          <Button variant="ghost" size="icon" onClick={() => setDark(!dark)} aria-label="Changer de thème">
-            {dark ? <Sun /> : <Moon />}
-          </Button>
+          <div className="flex gap-1">
+            <Button variant="ghost" size="icon" onClick={() => setDark(!dark)} aria-label="Changer de thème">
+              {dark ? <Sun /> : <Moon />}
+            </Button>
+            <Link to="/parametres" className="grid h-9 w-9 place-items-center rounded-lg hover:bg-muted" aria-label="Paramètres">
+              <Settings className="h-4 w-4" />
+            </Link>
+          </div>
         </header>
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:py-8">
           <Outlet />

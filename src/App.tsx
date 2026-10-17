@@ -17,6 +17,8 @@ import Planner from "@/pages/Planner";
 import Tasks from "@/pages/Tasks";
 import Assistant from "@/pages/Assistant";
 import Login from "@/pages/Login";
+import Settings from "@/pages/Settings";
+import ThemeApplier from "@/components/ThemeApplier";
 
 function RequireProfile({ children }: { children: ReactNode }) {
   const profile = useStore((s) => s.profile);
@@ -48,6 +50,8 @@ function AuthGate({ children }: { children: ReactNode }) {
 
 export default function App() {
   return (
+    <>
+    <ThemeApplier />
     <AuthGate>
       <Routes>
         <Route path="/bienvenue" element={<Onboarding />} />
@@ -69,9 +73,11 @@ export default function App() {
           <Route path="planning" element={<Planner />} />
           <Route path="taches" element={<Tasks />} />
           <Route path="assistant" element={<Assistant />} />
+          <Route path="parametres" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthGate>
+    </>
   );
 }
