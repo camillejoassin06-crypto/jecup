@@ -42,31 +42,23 @@ export function Mascot({ size = 40, className }: { size?: number; className?: st
   );
 }
 
-/** Mot « JecUp » : « Jec » en bleu marine, « Up » en violet, comme sur le logo. */
-export function Wordmark({ className }: { className?: string }) {
+/** Logo officiel JecUp, affiché en entier (le fond blanc est arrondi pour les thèmes sombres). */
+export function Logo({ size = 160, className }: { size?: number; className?: string }) {
   return (
-    <span className={cn("font-brand leading-none", className)}>
-      <span className="text-[hsl(var(--brand-ink))]">Jec</span>
-      <span className="bg-gradient-to-r from-[hsl(var(--brand-violet))] to-[hsl(var(--primary-2))] bg-clip-text text-transparent">Up</span>
-    </span>
-  );
-}
-
-export function Logo({ className }: { className?: string }) {
-  return (
-    <div className={cn("flex items-center gap-2.5", className)}>
-      <Mascot size={40} />
-      <div className="leading-none">
-        <Wordmark className="block text-2xl leading-[1.15]" />
-        <div className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">by {BRAND.company}</div>
-      </div>
-    </div>
+    <img
+      src={BRAND.logo}
+      alt="JecUp by Jeca Solutions — Apprends, révise, réussis !"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className={cn("shrink-0 rounded-full bg-white object-contain", className)}
+    />
   );
 }
 
 export default function Layout() {
   const profile = useStore((s) => s.profile);
-  const reset = useStore((s) => s.reset);
+  const signOut = useStore((s) => s.signOut);
   const loadDemo = useStore((s) => s.loadDemo);
   const navigate = useNavigate();
   const [dark, setDark] = useDarkMode();
@@ -75,8 +67,10 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[250px_1fr]">
-      <aside className="sticky top-0 hidden h-screen flex-col gap-6 border-r bg-card/60 p-4 lg:flex">
-        <Logo />
+      <aside className="sticky top-0 hidden h-screen flex-col gap-5 overflow-y-auto border-r bg-card/60 p-4 scrollbar-thin lg:flex">
+        <Link to="/" className="mx-auto" aria-label="Accueil JecUp">
+          <Logo size={150} className="shadow-md ring-1 ring-border" />
+        </Link>
         <nav className="flex flex-col gap-1">
           {NAV.map(({ to, label, icon: Icon, end }) => (
             <NavLink
@@ -111,12 +105,12 @@ export default function Layout() {
               variant="ghost"
               size="sm"
               className="flex-1 justify-start text-muted-foreground"
-              onClick={() => {
-                reset();
+              onClick={async () => {
+                await signOut();
                 navigate("/bienvenue");
               }}
             >
-              <LogOut /> {profile.isDemo ? "Quitter la démo" : "Réinitialiser"}
+              <LogOut /> {profile.isDemo ? "Quitter la démo" : "Se déconnecter"}
             </Button>
           </div>
         </div>
@@ -137,9 +131,17 @@ export default function Layout() {
             </span>
           </div>
         )}
-        <header className="flex items-center justify-between border-b px-4 py-3 lg:hidden">
-          <Logo />
+        <header className="flex items-center justify-between border-b px-4 py-2 lg:hidden">
+          <Link to="/" aria-label="Accueil JecUp"><Logo size={52} /></Link>
           <div className="flex gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={async () => { await signOut(); navigate("/bienvenue"); }}
+              aria-label={profile.isDemo ? "Quitter la démo" : "Se déconnecter"}
+            >
+              <LogOut />
+            </Button>
             <Button variant="ghost" size="icon" onClick={() => setDark(!dark)} aria-label="Changer de thème">
               {dark ? <Sun /> : <Moon />}
             </Button>

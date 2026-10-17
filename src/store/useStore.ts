@@ -7,8 +7,24 @@ import { buildDemo, type AppData } from "@/data/demo";
 import { emptyMastery, updateMastery } from "@/engine/memoryAgent";
 import { generatePlan, missedSessions } from "@/engine/plannerAgent";
 import { todayISO, uid } from "@/lib/utils";
+import { supabase } from "@/services/supabase";
 
-interface State extends Partial<AppData> {
+const snapshot = (s: State): Snapshot => ({
+  profile: s.profile!,
+  subjects: s.subjects,
+  documents: s.documents,
+  concepts: s.concepts,
+  attempts: s.attempts,
+  mastery: s.mastery,
+  events: s.events,
+  tasks: s.tasks,
+  chat: s.chat,
+});
+
+/** Données d'un élève, mises de côté pendant une démo. */
+type Snapshot = Omit<AppData, "profile"> & { profile: StudentProfile; chat: ChatMessage[] };
+
+interface State {
   profile?: StudentProfile;
   subjects: Subject[];
   documents: CourseDocument[];
@@ -18,9 +34,18 @@ interface State extends Partial<AppData> {
   events: PlannerEvent[];
   tasks: Task[];
   chat: ChatMessage[];
+  /** false après « Se déconnecter » : les données restent sur l'appareil */
+  signedIn: boolean;
+  /** profil réel conservé pendant qu'une démo est ouverte */
+  backup?: Snapshot;
 
   completeOnboarding: (profile: StudentProfile, subjects: Subject[]) => void;
   loadDemo: (key: string) => void;
+  /** quitte la démo et restaure le profil réel s'il y en avait un */
+  quitDemo: () => void;
+  signIn: () => void;
+  signOut: () => Promise<void>;
+  /** efface toutes les données de l'appareil */
   reset: () => void;
   updateProfile: (patch: Partial<StudentProfile>) => void;
 
@@ -65,12 +90,34 @@ export const useStore = create<State>()(
     (set, get) => ({
       ...empty,
 
+      signedIn: true,
+      backup: undefined,
+
       completeOnboarding: (profile, subjects) => {
-        set({ ...empty, profile, subjects });
+        set({ ...empty, profile, subjects, signedIn: true, backup: undefined });
         get().replan();
       },
-      loadDemo: (key) => set({ ...empty, ...buildDemo(key) }),
-      reset: () => set({ ...empty }),
+      loadDemo: (key) => {
+        const s = get();
+        // un vrai profil n'est jamais écrasé par la démo : on le met de côté
+        const backup = s.profile && !s.profile.isDemo ? snapshot(s) : s.backup;
+        set({ ...empty, ...buildDemo(key), signedIn: true, backup });
+      },
+      quitDemo: () => {
+        const b = get().backup;
+        // retour à l'accueil ; le profil réel restauré attend une reconnexion
+        set(b ? { ...empty, ...b, signedIn: false, backup: undefined } : { ...empty, signedIn: true, backup: undefined });
+      },
+      signIn: () => set({ signedIn: true }),
+      signOut: async () => {
+        if (get().profile?.isDemo) {
+          get().quitDemo();
+        } else {
+          set({ signedIn: false });
+        }
+        if (supabase) await supabase.auth.signOut();
+      },
+      reset: () => set({ ...empty, signedIn: true, backup: undefined }),
       updateProfile: (patch) => set((s) => ({ profile: s.profile ? { ...s.profile, ...patch } : s.profile })),
 
       addSubject: (sub) => set((s) => ({ subjects: [...s.subjects, sub] })),

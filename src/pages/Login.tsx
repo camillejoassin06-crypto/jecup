@@ -22,7 +22,7 @@ export default function Login() {
   return (
     <div className="grid min-h-screen place-items-center px-4">
       <Card className="w-full max-w-sm p-8">
-        <Logo />
+        <div className="flex justify-center"><Logo size={140} /></div>
         {sent ? (
           <p className="mt-6 text-sm">📬 Un lien de connexion a été envoyé à <b>{email}</b>. Ouvre-le sur cet appareil.</p>
         ) : (

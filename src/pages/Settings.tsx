@@ -1,4 +1,6 @@
-import { Check, Monitor, Moon, RotateCcw, Sun } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Check, LogOut, Monitor, Moon, RotateCcw, Sun, Trash2 } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { usePrefs } from "@/store/usePrefs";
 import { Button } from "@/components/ui/button";
@@ -14,7 +16,9 @@ const MODES: { id: ColorMode; label: string; icon: typeof Sun }[] = [
 
 export default function Settings() {
   const prefs = usePrefs();
-  const { profile, updateProfile } = useStore();
+  const { profile, updateProfile, signOut, reset } = useStore();
+  const navigate = useNavigate();
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -141,6 +145,48 @@ export default function Settings() {
               )}
             </CardContent>
           </Card>
+
+          {profile && (
+            <Card>
+              <CardHeader><CardTitle>Compte</CardTitle></CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="font-semibold">{profile.isDemo ? "Quitter la démo" : "Se déconnecter"}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {profile.isDemo
+                        ? "Les données de démonstration sont effacées ; ton profil, s'il existe, est restauré."
+                        : "Tes cours et ta progression restent sur cet appareil. Tu pourras te reconnecter depuis l'accueil."}
+                    </p>
+                  </div>
+                  <Button variant="outline" onClick={async () => { await signOut(); navigate("/bienvenue"); }}>
+                    <LogOut /> {profile.isDemo ? "Quitter la démo" : "Se déconnecter"}
+                  </Button>
+                </div>
+                {!profile.isDemo && (
+                  <div className="border-t pt-4">
+                    {!confirmDelete ? (
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="font-semibold text-destructive">Supprimer mes données</p>
+                          <p className="text-sm text-muted-foreground">Efface le profil, les cours, la progression et le planning de cet appareil.</p>
+                        </div>
+                        <Button variant="ghost" className="text-destructive" onClick={() => setConfirmDelete(true)}><Trash2 /> Supprimer</Button>
+                      </div>
+                    ) : (
+                      <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-4 text-sm">
+                        <p>Tout sera définitivement effacé de cet appareil : {profile.firstName}, ses cours et sa progression. Cette action est irréversible.</p>
+                        <div className="mt-3 flex gap-2">
+                          <Button variant="destructive" size="sm" onClick={() => { reset(); navigate("/bienvenue"); }}>Tout effacer</Button>
+                          <Button variant="ghost" size="sm" onClick={() => setConfirmDelete(false)}>Annuler</Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
 
           {profile && (
             <Card>

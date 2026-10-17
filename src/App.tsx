@@ -22,8 +22,9 @@ import ThemeApplier from "@/components/ThemeApplier";
 
 function RequireProfile({ children }: { children: ReactNode }) {
   const profile = useStore((s) => s.profile);
+  const signedIn = useStore((s) => s.signedIn);
   const location = useLocation();
-  if (!profile) return <Navigate to="/bienvenue" replace state={{ from: location.pathname }} />;
+  if (!profile || !signedIn) return <Navigate to="/bienvenue" replace state={{ from: location.pathname }} />;
   return <>{children}</>;
 }
 

@@ -21,8 +21,13 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const completeOnboarding = useStore((s) => s.completeOnboarding);
   const loadDemo = useStore((s) => s.loadDemo);
+  const existing = useStore((s) => s.profile);
+  const signedIn = useStore((s) => s.signedIn);
+  const signIn = useStore((s) => s.signIn);
+  const resetAll = useStore((s) => s.reset);
   const [step, setStep] = useState(0);
   const [showDemo, setShowDemo] = useState(false);
+  const [confirmNew, setConfirmNew] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [country, setCountry] = useState("France");
@@ -48,6 +53,11 @@ export default function Onboarding() {
       navigate(next && next.startsWith("/") ? next : "/", { replace: true });
     }
   }, [params, loadDemo, navigate]);
+
+  // déjà connecté : pas besoin de repasser par l'accueil
+  useEffect(() => {
+    if (existing && signedIn && !params.get("demo")) navigate("/", { replace: true });
+  }, [existing, signedIn, params, navigate]);
 
   const maxSpecs = level === "tle" ? 2 : 3;
   const steps = ["Bienvenue", "Toi", "Ta classe", "Tes matières", "Tes évaluations", "Ton objectif", "Ton temps"];
@@ -121,11 +131,50 @@ export default function Onboarding() {
     else if (!max || arr.length < max) set([...arr, v]);
   };
 
+  // profil enregistré sur cet appareil, élève déconnecté
+  if (existing && !signedIn && !showDemo && step === 0) {
+    return (
+      <Shell>
+        <div className="flex flex-col items-center text-center">
+          <img src={BRAND.logo} alt="JecUp by Jeca Solutions" width={200} height={200} className="h-48 w-48 rounded-full bg-white object-cover shadow-lg" />
+          <h1 className="mt-6 text-3xl font-extrabold">Bon retour, {existing.firstName} !</h1>
+          <p className="mt-2 text-muted-foreground">Ta progression t'attend sur cet appareil.</p>
+          <Button size="lg" className="mt-6" onClick={() => { signIn(); navigate("/"); }}>
+            Me reconnecter <ArrowRight />
+          </Button>
+          {!confirmNew ? (
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Button variant="ghost" onClick={() => setConfirmNew(true)}>Ce n'est pas moi</Button>
+              <Button variant="ghost" onClick={() => setShowDemo(true)}>Essayer la démo</Button>
+            </div>
+          ) : (
+            <div className="mt-6 w-full rounded-xl border border-destructive/40 bg-destructive/5 p-4 text-sm">
+              <p>
+                Créer un nouveau profil <b>effacera les cours et la progression de {existing.firstName}</b> sur cet appareil.
+              </p>
+              <div className="mt-3 flex justify-center gap-2">
+                <Button variant="destructive" size="sm" onClick={() => { resetAll(); setConfirmNew(false); setStep(1); }}>
+                  Effacer et créer un profil
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setConfirmNew(false)}>Annuler</Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </Shell>
+    );
+  }
+
   if (showDemo) {
     return (
       <Shell>
         <h1 className="text-3xl font-extrabold">Mode démo</h1>
         <p className="mt-1 text-muted-foreground">Choisis un profil : JecUp s'adapte au niveau, aux matières et aux évaluations de chacun.</p>
+        {existing && !existing.isDemo && (
+          <p className="mt-3 rounded-lg bg-secondary p-3 text-sm text-secondary-foreground">
+            Ta progression de {existing.firstName} est mise de côté pendant la démo : elle revient quand tu quittes la démo.
+          </p>
+        )}
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {DEMO_PROFILES.map((d) => (
             <button
@@ -159,7 +208,7 @@ export default function Onboarding() {
   return (
     <Shell wide={step === 0}>
       {step > 0 && (
-        <div className="mb-6 flex justify-center"><Logo /></div>
+        <div className="mb-6 flex justify-center"><Logo size={96} /></div>
       )}
       {step > 0 && (
         <div className="mb-8">
