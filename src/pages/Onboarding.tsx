@@ -1,19 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Brain, CalendarDays, Camera, PlayCircle, Plus, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, Chip, Input, Label, Progress, Select } from "@/components/ui/primitives";
-import { Logo } from "@/components/Layout";
-import { BRAND } from "@/lib/brand";
+import { Chip, Input, Label, Select } from "@/components/ui/primitives";
+import AuthShell from "@/components/AuthShell";
 import {
   BASE_FOLDERS, DISCIPLINES, EVAL_FORMATS, GOALS, LEVELS, SERIES_TECHNO, SPECIALITES, VOIES,
-  defaultSubjects, isPro, needsVoie,
+  defaultSubjects, isPro, levelInfo, needsVoie,
 } from "@/data/academic";
 import { DEMO_PROFILES } from "@/data/demo";
 import { classifyDiscipline } from "@/engine/classifier";
 import { useStore } from "@/store/useStore";
 import type { Cycle, DisciplineId, EvalFormat, Goal, LevelId, StudentProfile, Subject, Voie } from "@/types";
-import { cn, uid } from "@/lib/utils";
+import { cn, relativeDay, todayISO, uid } from "@/lib/utils";
 
 const DAYS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 
@@ -25,6 +24,9 @@ export default function Onboarding() {
   const signedIn = useStore((s) => s.signedIn);
   const signIn = useStore((s) => s.signIn);
   const resetAll = useStore((s) => s.reset);
+  const storeConcepts = useStore((s) => s.concepts);
+  const storeMastery = useStore((s) => s.mastery);
+  const storeEvents = useStore((s) => s.events);
   const [step, setStep] = useState(0);
   const [showDemo, setShowDemo] = useState(false);
   const [confirmNew, setConfirmNew] = useState(false);
@@ -133,134 +135,160 @@ export default function Onboarding() {
 
   // profil enregistré sur cet appareil, élève déconnecté
   if (existing && !signedIn && !showDemo && step === 0) {
+    const mastered = storeConcepts.filter((c) => (storeMastery[c.id]?.score ?? 0) >= 65).length;
+    const nextExam = storeEvents
+      .filter((e) => (e.kind === "controle" || e.kind === "examen") && e.date >= todayISO())
+      .sort((a, b) => a.date.localeCompare(b.date))[0];
     return (
       <Shell>
-        <div className="flex flex-col items-center text-center">
-          <img src={BRAND.logo} alt="JecUp by Jeca Solutions" width={200} height={200} className="h-48 w-48 rounded-full bg-white object-cover shadow-lg" />
-          <h1 className="mt-6 text-3xl font-extrabold">Bon retour, {existing.firstName} !</h1>
-          <p className="mt-2 text-muted-foreground">Ta progression t'attend sur cet appareil.</p>
-          <Button size="lg" className="mt-6" onClick={() => { signIn(); navigate("/"); }}>
-            Me reconnecter <ArrowRight />
-          </Button>
-          {!confirmNew ? (
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-              <Button variant="ghost" onClick={() => setConfirmNew(true)}>Ce n'est pas moi</Button>
-              <Button variant="ghost" onClick={() => setShowDemo(true)}>Essayer la démo</Button>
+        <div className="text-center">
+          <div className="relative mx-auto w-fit">
+            <div aria-hidden className="absolute -inset-3 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] opacity-30 blur-xl" />
+            <div className="relative grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] font-display text-4xl font-extrabold text-primary-foreground shadow-xl ring-4 ring-card">
+              {existing.firstName.charAt(0).toUpperCase()}
             </div>
-          ) : (
-            <div className="mt-6 w-full rounded-xl border border-destructive/40 bg-destructive/5 p-4 text-sm">
-              <p>
-                Créer un nouveau profil <b>effacera les cours et la progression de {existing.firstName}</b> sur cet appareil.
-              </p>
-              <div className="mt-3 flex justify-center gap-2">
-                <Button variant="destructive" size="sm" onClick={() => { resetAll(); setConfirmNew(false); setStep(1); }}>
-                  Effacer et créer un profil
-                </Button>
-                <Button variant="ghost" size="sm" onClick={() => setConfirmNew(false)}>Annuler</Button>
-              </div>
-            </div>
-          )}
+          </div>
+          <p className="mt-6 font-brand text-xl text-[hsl(var(--brand-violet))]">Content de te revoir !</p>
+          <h1 className="mt-1 text-4xl font-extrabold tracking-tight">Bon retour, {existing.firstName}</h1>
+          <p className="mt-2 text-muted-foreground">
+            {levelInfo(existing.level).label}
+            {existing.specialites.length ? ` · ${existing.specialites.join(", ")}` : ""}
+          </p>
         </div>
+
+        <div className="mt-8 grid grid-cols-3 gap-3">
+          <MiniStat value={String(storeConcepts.length)} label="notions suivies" />
+          <MiniStat value={String(mastered)} label="acquises" />
+          <MiniStat value={nextExam ? relativeDay(nextExam.date) : "—"} label="prochain contrôle" />
+        </div>
+
+        <Button variant="brand" size="lg" className="mt-8 h-14 w-full text-base" onClick={() => { signIn(); navigate("/"); }}>
+          Me reconnecter <ArrowRight />
+        </Button>
+
+        {!confirmNew ? (
+          <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+            <button className="font-semibold text-muted-foreground underline-offset-4 hover:text-foreground hover:underline" onClick={() => setConfirmNew(true)}>
+              Ce n'est pas moi
+            </button>
+            <button className="font-semibold text-muted-foreground underline-offset-4 hover:text-foreground hover:underline" onClick={() => setShowDemo(true)}>
+              Essayer la démo
+            </button>
+          </div>
+        ) : (
+          <div className="mt-6 rounded-2xl border border-destructive/40 bg-destructive/5 p-4 text-sm animate-in fade-in zoom-in-95">
+            <p>
+              Créer un nouveau profil <b>effacera les cours et la progression de {existing.firstName}</b> sur cet appareil.
+            </p>
+            <div className="mt-3 flex justify-center gap-2">
+              <Button variant="destructive" size="sm" onClick={() => { resetAll(); setConfirmNew(false); setStep(1); }}>
+                Effacer et créer un profil
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => setConfirmNew(false)}>Annuler</Button>
+            </div>
+          </div>
+        )}
       </Shell>
     );
   }
 
   if (showDemo) {
     return (
-      <Shell>
-        <h1 className="text-3xl font-extrabold">Mode démo</h1>
-        <p className="mt-1 text-muted-foreground">Choisis un profil : JecUp s'adapte au niveau, aux matières et aux évaluations de chacun.</p>
+      <Shell wide>
+        <button onClick={() => setShowDemo(false)} className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> Retour
+        </button>
+        <p className="font-brand text-xl text-[hsl(var(--brand-violet))]">Visite guidée</p>
+        <h1 className="mt-1 text-4xl font-extrabold tracking-tight">Choisis un élève</h1>
+        <p className="mt-2 text-muted-foreground">Découvre comment JecUp s'adapte au niveau, aux matières et aux évaluations de chacun.</p>
         {existing && !existing.isDemo && (
-          <p className="mt-3 rounded-lg bg-secondary p-3 text-sm text-secondary-foreground">
-            Ta progression de {existing.firstName} est mise de côté pendant la démo : elle revient quand tu quittes la démo.
+          <p className="mt-4 rounded-xl bg-secondary p-3 text-sm text-secondary-foreground">
+            La progression de {existing.firstName} est mise de côté pendant la démo : elle revient quand tu la quittes.
           </p>
         )}
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {DEMO_PROFILES.map((d) => (
+          {DEMO_PROFILES.map((d, i) => (
             <button
               key={d.key}
-              onClick={() => {
-                loadDemo(d.key);
-                navigate("/");
-              }}
-              className="flex items-start gap-3 rounded-2xl border bg-card p-4 text-left transition hover:border-primary hover:shadow-md"
+              onClick={() => { loadDemo(d.key); navigate("/"); }}
+              className="group flex items-start gap-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lg animate-in fade-in slide-in-from-bottom-2"
+              style={{ animationDelay: `${i * 60}ms`, animationFillMode: "backwards" }}
             >
-              <span className="text-3xl">{d.avatar}</span>
-              <span>
-                <span className="block font-display text-lg font-bold">{d.firstName}</span>
-                <span className="block text-sm text-muted-foreground">{d.tagline}</span>
+              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-secondary to-accent text-3xl transition-transform group-hover:scale-110">
+                {d.avatar}
+              </span>
+              <span className="min-w-0">
+                <span className="flex items-center gap-2">
+                  <span className="font-display text-lg font-bold">{d.firstName}</span>
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary">{levelInfo(d.level).label}</span>
+                </span>
+                <span className="block text-sm text-muted-foreground">{d.tagline.split("·").slice(1).join("·").trim() || d.tagline}</span>
                 <span className="mt-2 flex flex-wrap gap-1">
                   {d.docs.map((doc) => (
-                    <span key={doc.title} className="rounded-full bg-muted px-2 py-0.5 text-xs">{doc.title}</span>
+                    <span key={doc.title} className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{doc.title}</span>
                   ))}
                 </span>
               </span>
             </button>
           ))}
         </div>
-        <Button variant="ghost" className="mt-6" onClick={() => setShowDemo(false)}>
-          <ArrowLeft /> Retour
-        </Button>
       </Shell>
     );
   }
 
   return (
-    <Shell wide={step === 0}>
-      {step > 0 && (
-        <div className="mb-6 flex justify-center"><Logo size={96} /></div>
-      )}
+    <Shell wide={step > 0}>
       {step > 0 && (
         <div className="mb-8">
-          <div className="mb-2 flex justify-between text-xs font-semibold text-muted-foreground">
-            <span>{steps[step]}</span>
-            <span>{step}/{steps.length - 1}</span>
+          <div className="mb-3 flex items-center justify-between">
+            <span className="text-sm font-bold text-primary">{steps[step]}</span>
+            <span className="text-xs font-semibold text-muted-foreground">Étape {step} sur {steps.length - 1}</span>
           </div>
-          <Progress value={(step / (steps.length - 1)) * 100} />
+          <div className="flex gap-1.5">
+            {steps.slice(1).map((s, i) => (
+              <div key={s} className={cn("h-1.5 flex-1 rounded-full transition-colors", i < step ? "bg-gradient-to-r from-primary to-[hsl(var(--primary-2))]" : "bg-muted")} />
+            ))}
+          </div>
         </div>
       )}
 
       {step === 0 && (
-        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,300px)_1fr]">
-          <div className="relative mx-auto w-full max-w-[300px]">
-            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--primary-2))] opacity-30 blur-2xl" />
-            <img
-              src={BRAND.logo}
-              alt="JecUp by Jeca Solutions — Apprends, révise, réussis !"
-              width={300}
-              height={300}
-              className="relative aspect-square w-full rounded-full bg-white object-cover shadow-xl ring-4 ring-card"
-            />
+        <div>
+          <span className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-semibold text-muted-foreground shadow-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-success" /> Gratuit · sans inscription · de la 6e à la Terminale
+          </span>
+          <h1 className="mt-5 text-[clamp(2.25rem,5vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight">
+            Tes cours deviennent{" "}
+            <span className="bg-gradient-to-r from-primary to-[hsl(var(--primary-2))] bg-clip-text text-transparent">ton plan de réussite.</span>
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Photographie une leçon : JecUp repère l'essentiel, te teste au bon niveau et organise tes révisions jusqu'au contrôle, au brevet ou au bac.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button variant="brand" size="lg" className="h-14 w-full text-base sm:flex-1" onClick={() => setStep(1)}>
+              Créer mon profil <ArrowRight />
+            </Button>
+            <Button variant="outline" size="lg" className="h-14 w-full text-base sm:flex-1" onClick={() => setShowDemo(true)}>
+              <PlayCircle /> Essayer la démo
+            </Button>
           </div>
-          <div className="text-center md:text-left">
-            <p className="font-brand text-2xl text-[hsl(var(--brand-violet))]">{BRAND.tagline}</p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-tight sm:text-5xl">
-              Tes cours deviennent <span className="bg-gradient-to-r from-primary to-[hsl(var(--primary-2))] bg-clip-text text-transparent">ton plan de réussite</span>.
-            </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Photographie une leçon : JecUp repère l'essentiel, te teste au bon niveau, mesure ce que tu maîtrises
-              et organise tes révisions jusqu'au contrôle, au brevet ou au bac.
-            </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
-              <Button size="lg" onClick={() => setStep(1)}>
-                Créer mon profil <ArrowRight />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => setShowDemo(true)}>
-                Essayer la démo
-              </Button>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 text-left text-sm sm:grid-cols-4 md:col-span-2">
-            {[
-              ["📸", "Scanner", "Photo, PDF ou texte"],
-              ["🧠", "Comprendre", "Les notions clés repérées"],
-              ["🎯", "Se tester", "Au bon niveau, qui s'adapte"],
-              ["📅", "S'organiser", "Un planning qui suit tes contrôles"],
-            ].map(([icon, title, hint]) => (
-              <div key={title} className="rounded-xl border bg-card p-3">
-                <div className="text-xl">{icon}</div>
-                <div className="mt-1 font-semibold">{title}</div>
-                <div className="text-xs text-muted-foreground">{hint}</div>
+
+          <div className="mt-10 grid grid-cols-2 gap-3">
+            {([
+              [Camera, "Scanner", "Photo, PDF ou texte"],
+              [Brain, "Comprendre", "Les notions clés repérées"],
+              [Target, "Se tester", "Un niveau qui s'adapte"],
+              [CalendarDays, "S'organiser", "Un planning qui suit tes contrôles"],
+            ] as const).map(([Icon, title, hint]) => (
+              <div key={title} className="flex items-start gap-3 rounded-2xl border bg-card/80 p-3.5 shadow-sm backdrop-blur">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-[hsl(var(--primary-2)/0.15)] text-primary">
+                  <Icon className="h-4 w-4" />
+                </span>
+                <span>
+                  <span className="block text-sm font-bold">{title}</span>
+                  <span className="block text-xs text-muted-foreground">{hint}</span>
+                </span>
               </div>
             ))}
           </div>
@@ -425,7 +453,7 @@ export default function Onboarding() {
           <Button variant="ghost" onClick={() => setStep(step - 1)}>
             <ArrowLeft /> Retour
           </Button>
-          <Button onClick={next} disabled={!canNext}>
+          <Button variant="brand" size="lg" onClick={next} disabled={!canNext}>
             {step === steps.length - 1 ? "C'est parti !" : "Continuer"} <ArrowRight />
           </Button>
         </div>
@@ -434,15 +462,13 @@ export default function Onboarding() {
   );
 }
 
-function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }) {
+const Shell = AuthShell;
+
+function MiniStat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,hsl(var(--secondary)),transparent_60%)] px-4 py-10">
-      <Card className={cn("mx-auto p-6 sm:p-10", wide ? "max-w-4xl" : "max-w-2xl")}>{children}</Card>
-      <p className="mt-6 text-center text-xs text-muted-foreground">
-        Tes cours restent privés : ils sont stockés sur ton appareil (ou dans ton espace sécurisé si la synchronisation est activée).
-        <br />
-        JecUp by {BRAND.company}
-      </p>
+    <div className="rounded-2xl border bg-card p-3 text-center shadow-sm">
+      <div className="font-display text-2xl font-extrabold">{value}</div>
+      <div className="text-[11px] font-medium text-muted-foreground">{label}</div>
     </div>
   );
 }
